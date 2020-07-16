@@ -14,14 +14,10 @@ import org.springframework.stereotype.Service;
 public class DataService {
 
 	@Autowired
-	private static ProjectRepository projectRepository;
-
-	public DataService(ProjectRepository projectRepository) {
-		DataService.projectRepository = projectRepository;
-	}
+	private ProjectRepository projectRepository;
 
 	/*-----------------------------------------------------------------*/
-	public static List<Datas> getData(String projectId, String apiKey) {
+	public  List<Datas> getData(String projectId, String apiKey) {
 		Optional<Project> pro = projectRepository.findById(projectId);
 		if (pro.isPresent() && pro.get().getApiKey().equals(apiKey)) {
 			return pro.get().getValues();
@@ -30,7 +26,7 @@ public class DataService {
 		}
 	}
 
-	public static void putData(String projectId, Datas datas, String apiKey) {
+	public  void putData(String projectId, Datas datas, String apiKey) {
 		Optional<Project> pro = projectRepository.findById(projectId);
 		if (pro.isPresent()) {
 			pro.get().getValues().add(datas);
@@ -41,7 +37,7 @@ public class DataService {
 		}
 	}
 
-	public static void deleteData(String projectId, String apiKey) {
+	public  void deleteData(String projectId, String apiKey) {
 		Optional<Project> pro = projectRepository.findById(projectId);
 		if (pro.isPresent()) {
 			if (pro.get().getApiKey().equals(apiKey)) {

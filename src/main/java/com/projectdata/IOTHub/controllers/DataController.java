@@ -2,6 +2,7 @@ package com.projectdata.IOTHub.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -16,21 +17,24 @@ import com.projectdata.IOTHub.services.DataService;
 @RequestMapping(value = "/project/{projectId}/data")
 public class DataController {
 	
+	@Autowired
+	private DataService dataService;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Datas> getData(@PathVariable String projectId, @RequestHeader String apiKey)
 	{
-		return DataService.getData(projectId,apiKey);
+		return dataService.getData(projectId,apiKey);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public void putData(@PathVariable String projectId,@RequestBody Datas datas, @RequestHeader String apiKey)
 	{
-		DataService.putData(projectId,datas,apiKey);
+		dataService.putData(projectId,datas,apiKey);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE)
 	public void deleteAllData(@PathVariable String projectId, @RequestHeader String apiKey)
 	{
-		DataService.deleteData(projectId,apiKey);
+		dataService.deleteData(projectId,apiKey);
 	}
 }
