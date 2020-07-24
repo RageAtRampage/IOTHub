@@ -8,29 +8,29 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Datas {
 	@Id
-	private int timestamp;
-	private Map<String, String> variables;
+	private long timestamp;
+	private Map<String, Double> variables;
 	
 	public Datas() {}
 
-	public Datas (int a, Map<String,String> d) {
+	public Datas (int a, Map<String,Double> d) {
 		this.setTimestamp(a);
 		this.setVariables(d);
 	}
 
-	public int getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(int timestamp) {
+	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 
-	public Map<String, String> getVariables() {
+	public Map<String, Double> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(Map<String, String> variables) {
+	public void setVariables(Map<String, Double> variables) {
 		this.variables = variables;
 	}
 }

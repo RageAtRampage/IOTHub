@@ -1,7 +1,6 @@
 package com.projectdata.IOTHub.models;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,12 +11,12 @@ public class Project {
 	private String projectId;
 	private String projectName;
 	private String apiKey;
-	private Map<String, String> projectVariables;
+	List<String> projectVariables;
 	private List<Datas> values;
 	
 	public Project() {}
 	
-	public Project(String a,String b,String c, Map<String,String> d, List<Datas> list) {
+	public Project(String a,String b,String c, List<String> d, List<Datas> list) {
 		this.setProjectId(a);
 		this.setProjectName(b);
 		this.setApiKey(c);
@@ -41,11 +40,11 @@ public class Project {
 		this.apiKey = apiKey;
 	}
 
-	public Map<String, String> getProjectVariables() {
+	public List<String> getProjectVariables() {
 		return projectVariables;
 	}
 
-	public void setProjectVariables(Map<String, String> projectVariables) {
+	public void setProjectVariables(List<String> projectVariables) {
 		this.projectVariables = projectVariables;
 	}
 

@@ -11,7 +11,7 @@ import com.projectdata.IOTHub.repos.ProjectRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class ProjectComponents implements CommandLineRunner{
 
 	private ProjectRepository m;
@@ -23,15 +23,15 @@ public class ProjectComponents implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Map<String, String> x = new HashMap<String, String>() {{
-			put("USA", "Washington");
-			put("United Kingdom", "London");
-			put("India", "New Delhi");
+		/*Map<String, Double> x = new HashMap<String, Double>() {{
+			put("USA", 1.23);
+			put("United Kingdom", 1.23);
+			put("India", 1.23);
 		}};
-		Project p1 = new Project("abcd","abcd","abcd",x,Arrays.asList(new Datas(1,x)));
+		Project p1 = new Project("abcdee","abcd","abcd",Arrays.asList("Usa","uk"),Arrays.asList(new Datas(1,x)));
 		
 		List<Project> h = Arrays.asList(p1);
-		this.m.saveAll(h);
+		this.m.saveAll(h);*/
 	}
 	
 
