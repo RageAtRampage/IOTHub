@@ -6,6 +6,7 @@ import com.projectdata.IOTHub.models.DataDescription;
 import com.projectdata.IOTHub.models.Datas;
 import com.projectdata.IOTHub.repos.ProjectRepository;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +41,7 @@ public class DataService {
 			if (pro.isPresent() && pro.get().getApiKey().equals(apiKey)) {
 				Datas data = new Datas();
 
-				data.setTimestamp(
-						new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1970 01:00:00").getTime()
-								/ 1000);
+				data.setTimestamp(Instant.now().toEpochMilli());
 
 				Map<String, Double> variables = dataDescription.getVariables();
 				Map<String, Double> newVariables = new HashMap<String, Double>();
