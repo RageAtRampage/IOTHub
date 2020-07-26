@@ -4,7 +4,9 @@ import com.projectdata.IOTHub.models.Project;
 import com.projectdata.IOTHub.exception.InvalidException;
 import com.projectdata.IOTHub.models.DataDescription;
 import com.projectdata.IOTHub.models.Datas;
+import com.projectdata.IOTHub.repos.DataRepository;
 import com.projectdata.IOTHub.repos.ProjectRepository;
+import com.projectdata.IOTHub.serviceInterfaces.DataServiceInterface;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -13,20 +15,26 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@Service
-public class DataService {
+@Service("com.projectdata.IOTHub.services.DataService")
+public class DataService implements DataServiceInterface {
 
 	@Autowired
+	@Qualifier("com.projectdata.IOTHub.repos.DataRepository")
+	private DataRepository dataRepository;
+	
+	@Autowired
+	@Qualifier("com.projectdata.IOTHub.repos.ProjectRepository")
 	private ProjectRepository projectRepository;
 
 	/*-----------------------------------------------------------------*/
-	public List<Datas> getData(String projectId, String apiKey) {
+	public List<DataDescription> getData(String projectId, String apiKey) {
 		try {
-			Optional<Project> pro = projectRepository.findById(projectId);
-			if (pro.isPresent() && pro.get().getApiKey().equals(apiKey)) {
-				return pro.get().getValues();
+			Optional<Datas> dat = dataRepository.findById(projectId);
+			if (dat.isPresent() && dat.get().getApikey().equals(apiKey)) {
+				return dat.get().getData();
 			} else {
 				throw new InvalidException("Invaid Project Id or Api Key");
 			}
@@ -38,18 +46,18 @@ public class DataService {
 	public void putData(String projectId, DataDescription dataDescription, String apiKey) {
 		try {
 			Optional<Project> pro = projectRepository.findById(projectId);
-			if (pro.isPresent() && pro.get().getApiKey().equals(apiKey)) {
-				Datas data = new Datas();
+			Optional<Datas> dat = dataRepository.findById(projectId);
+			if (dat.isPresent() && dat.get().getApikey().equals(apiKey)) {
+				DataDescription data = new DataDescription();
 
 				data.setTimestamp(Instant.now().toEpochMilli());
 
-				Map<String, Double> variables = dataDescription.getVariables();
 				Map<String, Double> newVariables = new HashMap<String, Double>();
 				List<String> variableList = pro.get().getProjectVariables();
 
 				for (String s : variableList) {
-					if (variables.containsKey(s))
-						newVariables.put(s, variables.get(s));
+					if (dataDescription.getVariables().containsKey(s))
+						newVariables.put(s, dataDescription.getVariables().get(s));
 					else
 						newVariables.put(s, Double.valueOf(0));
 				}
@@ -57,9 +65,9 @@ public class DataService {
 				data.setVariables(newVariables);
 
 				if (!newVariables.isEmpty()) {
-					pro.get().getValues().add(data);
-					Project proadd = pro.get();
-					projectRepository.save(proadd);
+					dat.get().getData().add(data);
+					Datas datadd = dat.get();
+					dataRepository.save(datadd);
 				}else {
 					throw new InvalidException("No Similar Variable Found in Project");
 				}
@@ -74,11 +82,11 @@ public class DataService {
 
 	public void deleteData(String projectId, String apiKey) {
 		try {
-			Optional<Project> pro = projectRepository.findById(projectId);
-			if (pro.isPresent() && pro.get().getApiKey().equals(apiKey)) {
-				pro.get().getValues().clear();
-				Project proremove = pro.get();
-				projectRepository.save(proremove);
+			Optional<Datas> dat = dataRepository.findById(projectId);
+			if (dat.isPresent() && dat.get().getApikey().equals(apiKey)) {
+				dat.get().getData().clear();
+				Datas datadd = dat.get();
+				dataRepository.save(datadd);
 			} else {
 				throw new InvalidException("Invaid Project Id or Api Key");
 			}

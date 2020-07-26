@@ -12,9 +12,9 @@ public class ProjectDescription {
 	public ProjectDescription() {
 	}
 
-	public ProjectDescription(String a, List<String> d) {
+	public ProjectDescription(String a, List<String> b) {
 		this.setProjectName(a);
-		this.setProjectVariables(d);
+		this.setProjectVariables(b);
 
 	}
 

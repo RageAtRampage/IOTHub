@@ -1,36 +1,46 @@
 package com.projectdata.IOTHub.models;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "projectData")
 public class Datas {
 	@Id
-	private long timestamp;
-	private Map<String, Double> variables;
+	private String projectId;
+	private String apikey;
+	private List<DataDescription> data;
 	
 	public Datas() {}
-
-	public Datas (int a, Map<String,Double> d) {
-		this.setTimestamp(a);
-		this.setVariables(d);
+	
+	public Datas(String projectId, String apikey, List<DataDescription> data) {
+		this.setProjectId(projectId);
+		this.setApikey(apikey);
+		this.setData(data);
 	}
 
-	public long getTimestamp() {
-		return timestamp;
+	public String getApikey() {
+		return apikey;
 	}
 
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
+	public void setApikey(String apikey) {
+		this.apikey = apikey;
+	}
+	
+	public String getProjectId() {
+		return projectId;
 	}
 
-	public Map<String, Double> getVariables() {
-		return variables;
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 
-	public void setVariables(Map<String, Double> variables) {
-		this.variables = variables;
+	public List<DataDescription> getData() {
+		return data;
+	}
+
+	public void setData(List<DataDescription> data) {
+		this.data = data;
 	}
 }

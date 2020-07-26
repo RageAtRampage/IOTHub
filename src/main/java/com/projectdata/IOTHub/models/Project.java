@@ -5,23 +5,21 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "projectdata")
+@Document(collection = "projectInfo")
 public class Project {
 	@Id
 	private String projectId;
 	private String projectName;
 	private String apiKey;
 	List<String> projectVariables;
-	private List<Datas> values;
 	
 	public Project() {}
 	
-	public Project(String a,String b,String c, List<String> d, List<Datas> list) {
+	public Project(String a,String b,String c, List<String> d) {
 		this.setProjectId(a);
 		this.setProjectName(b);
 		this.setApiKey(c);
 		this.setProjectVariables(d);
-		this.setValues(list);
 	}
 
 	public String getProjectName() {
@@ -46,14 +44,6 @@ public class Project {
 
 	public void setProjectVariables(List<String> projectVariables) {
 		this.projectVariables = projectVariables;
-	}
-
-	public List<Datas> getValues() {
-		return values;
-	}
-
-	public void setValues(List<Datas> values) {
-		this.values = values;
 	}
 
 	public String getProjectId() {
