@@ -45,6 +45,7 @@ public class ProjectService implements ProjectServiceInterface {
 				project.setProjectId(Generators.timeBasedGenerator().generate().toString());
 				project.setApiKey(Generators.timeBasedGenerator().generate().toString());
 				project.setProjectName(projectDescription.getProjectName());
+				project.setProjectDescription(projectDescription.getProjectDescription());
 				project.setProjectVariables(projectDescription.getProjectVariables());
 				projectRepository.insert(project);
 				

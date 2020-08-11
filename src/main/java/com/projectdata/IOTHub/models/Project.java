@@ -10,16 +10,18 @@ public class Project {
 	@Id
 	private String projectId;
 	private String projectName;
+	private String projectDescription;
 	private String apiKey;
 	List<String> projectVariables;
 	
 	public Project() {}
 	
-	public Project(String a,String b,String c, List<String> d) {
+	public Project(String a,String b,String c, String d, List<String> e) {
 		this.setProjectId(a);
 		this.setProjectName(b);
-		this.setApiKey(c);
-		this.setProjectVariables(d);
+		this.setProjectDescription(c);
+		this.setApiKey(d);
+		this.setProjectVariables(e);
 	}
 
 	public String getProjectName() {
@@ -52,5 +54,13 @@ public class Project {
 
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
+	}
+
+	public String getProjectDescription() {
+		return projectDescription;
+	}
+
+	public void setProjectDescription(String projectDescription) {
+		this.projectDescription = projectDescription;
 	}
 }
